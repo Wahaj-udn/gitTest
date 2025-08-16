@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      overflow-x: hidden;
+      color: #333;
+      text-align: center;
+    }
+    section {
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    h1, h2, p {
+      margin: 15px 0;
+    }
+    .btn {
+      background: #ff4b5c;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #ff6f91;
+      transform: scale(1.05);
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 15px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .gallery img:hover {
+      transform: scale(1.05) rotate(-2deg);
+    }
+    .compliment {
+      display: none;
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+    .hint-text {
+      font-size: 14px;
+      color: #555;
+      margin-top: 10px;
+    }
+    .fun-buttons {
+      margin-top: 30px;
+      position: relative;
+      height: 180px; /* more room so No can run without escaping */
+      width: 100%;
+      max-width: 600px;
+      touch-action: manipulation;
+    }
+    .fun-btn {
+      position: absolute;
+      background: #4cafef;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      user-select: none;
+      z-index: 1;
+    }
+    /* Initial positions */
+    #yesBtn { left: 20%; top: 40px; }
+    #noBtn  { left: 60%; top: 40px; }
+    .message-box {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+      text-align: left;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    #typed {
+      border-right: .15em solid #333;
+      white-space: pre-wrap;
+      overflow: hidden;
+    }
+    .quiz {
+      margin-top: 30px;
+    }
+    .quiz button {
+      margin: 10px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      background: #ff4b5c;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .subtle-note {
+      font-size: 14px;
+      margin-top: 20px;
+      color: #666;
+      font-style: italic;
+    }
+    footer {
+      padding: 20px;
+      font-size: 14px;
+      background: rgba(255,255,255,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Landing -->
+  <section>
+    <h1>Hey Fatima 👋</h1>
+    <p>I made something little for you...</p>
+    <button class="btn" onclick="scrollToGallery()">Click Me 😏</button>
+    <p class="subtle-note">(Don’t worry, nothing scary ahead 😉)</p>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <h2>this is my version of vogue</h2>
+    <p class="hint-text">Click a photo to see what I think of it 👇</p>
+    <div class="gallery">
+      <div>
+        <img src="noman1.jpg" onclick="revealCompliment(this)">
+        <p class="compliment"> This smile makes my entire day 💕</p>
+      </div>
+      <div>
+        <img src="noman2.jpg" onclick="revealCompliment(this)">
+        <p class="compliment">damn bro them eyes so pretty sksksksk</p>
+      </div>
+      <div>
+        <img src="noman3.jpg" onclick="revealCompliment(this)">
+        <p class="compliment">How do you manage to look this good all the time?</p>
+      </div>
+    </div>
+    <p class="subtle-note">(Lowkey, every photo deserves its own compliment 🥲)</p>
+  </section>
+
+  <!-- Fun Yes/No -->
+  <section>
+    <h2>Do you like surprises? 🎁</h2>
+    <p class="hint-text">Go ahead, try saying no... </p>
+    <div class="fun-buttons">
+      <button id="yesBtn" class="fun-btn" onclick="showMessage()">Yes 😍</button>
+      <button id="noBtn" class="fun-btn" onmouseover="moveButton(event)" onclick="moveButton(event)" ontouchstart="moveButton(event)">No 🙅‍♀️</button>
+    </div>
+    <p class="subtle-note">(Told you the “No” button wouldn’t behave 😂)</p>
+  </section>
+
+  <!-- Message -->
+  <section id="message" style="display:none;">
+    <div class="message-box">
+      <h2>Here’s the truth 💌</h2>
+      <p id="typed"></p>
+    </div>
+
+    <!-- Quiz -->
+    <div class="quiz">
+      <h3>Did you like this little something</h3>
+      <button onclick="alert('YAYAYAYAYAYAYAYAY')">Yes</button>
+      <button onclick="alert(':( okie its okay)')">No</button>
+    </div>
+
+    <!-- Surprise -->
+    <div style="margin-top:30px;">
+      <button class="btn" onclick="showSurprise()">One last surprise? 👀</button>
+      <p id="surpriseText" style="display:none; margin-top:20px; font-weight:bold;">Okay fine... You officially have my heart now 💖</p>
+    </div>
+    <p class="subtle-note">(Alright, that’s enough website drama for one day 😅)</p>
+  </section>
+
+  <footer>
+    Made with ❤️ (and a bit of JavaScript magic)
+  </footer>
+
+  <script>
+    function scrollToGallery(){
+      document.getElementById('gallery').scrollIntoView({behavior:'smooth'});
+    }
+
+    function revealCompliment(img){
+      const compliment = img.nextElementSibling;
+      compliment.style.display = (compliment.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function showMessage(){
+      document.getElementById('message').style.display = 'block';
+      document.getElementById('message').scrollIntoView({behavior:'smooth'});
+      typeMessage("You’re amazing. Every photo, every smile. it’s unfair how good you make life look. This website’s just my way of saying you’re really special. PS: I fw you heavy bro, like really heavy. I hope you know that. And I hope you never forget it. You’re a gem, Fatima 💖");
+    }
+
+    function moveButton(e){
+      if (e) e.preventDefault();
+      const btn = document.getElementById('noBtn');
+      const container = btn.parentElement;
+      const cRect = container.getBoundingClientRect();
+      const bRect = btn.getBoundingClientRect();
+      const maxLeft = cRect.width - bRect.width;
+      const maxTop  = cRect.height - bRect.height;
+      const newLeft = Math.random() * maxLeft;
+      const newTop  = Math.random() * maxTop;
+      btn.style.left = newLeft + 'px';
+      btn.style.top  = newTop  + 'px';
+    }
+
+    function typeMessage(text){
+      let i = 0;
+      const speed = 40;
+      const typed = document.getElementById("typed");
+      typed.innerHTML = "";
+      function typing(){
+        if (i < text.length){
+          typed.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        }
+      }
+      typing();
+    }
+
+    function showSurprise(){
+      document.getElementById('surpriseText').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
